@@ -31,7 +31,6 @@ def transcribe_audio(audio_file, pipe):
     audio_file, sr = librosa.load(audio_file)
     if sr != 16000:
         audio_file = librosa.resample(audio_file, orig_sr=sr, target_sr=16000)
-    temp_file = "temp_audio.mp3"
     response = pipe(audio_file)
     print(response)
     return response['text']
