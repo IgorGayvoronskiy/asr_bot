@@ -1,7 +1,9 @@
 <h1>Проект по созданию speech recognition телеграм бота</h1>
 <img src='https://github.com/IgorGayvoronskiy/asr_bot/blob/main/img/photo_bot.jpg' alter='bot_img'>
 <h2>Описание</h2>
-<a>Данный телеграм бот разработан на Python при помощи библиотеки telebot. Распознавание речи осуществляется за счёт работы asr модели whisper-small от OpenAi, дообученной на русскоязычной части датасета Common voice 17.0. Ссылка на модель на Hugging Face: https://huggingface.co/KnIgor/whisper-small-ru. Для развёртывания на сервере используется docker файл.</a>
+<br>Данный телеграм бот разработан на Python при помощи библиотеки telebot.</br> 
+<br>Распознавание речи осуществляется за счёт работы asr модели whisper-small от OpenAi, дообученной на русскоязычной части датасета Common voice 17.0. Ссылка на модель на Hugging Face: https://huggingface.co/KnIgor/whisper-small-ru.</br>
+<br>Для развёртывания на сервере используется docker файл.</br>
 <h2>Примеры:</h2>
 <a>Обработка аудиосообщения пользователя и вывод результата</a>
 <img src='https://github.com/IgorGayvoronskiy/asr_bot/blob/main/img/work.png' alter='work_img'>
