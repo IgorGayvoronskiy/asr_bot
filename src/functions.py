@@ -5,49 +5,24 @@ from transformers import AutoModelForSpeechSeq2Seq, AutoProcessor, pipeline
 
 
 def setup_model():
-    # device = "cuda:0" if torch.cuda.is_available() else "cpu"
-    # torch_dtype = torch.float16 if torch.cuda.is_available() else torch.float32
-
-    model_id_s = "Maks545curve/whisper-small-ru2-pl-a"
-    model_s = AutoModelForSpeechSeq2Seq.from_pretrained(
-        model_id_s, torch_dtype=torch.float32, low_cpu_mem_usage=True, use_safetensors=True, attn_implementation="sdpa"
+    model_id = "KnIgor/whisper-small-ru"
+    model = AutoModelForSpeechSeq2Seq.from_pretrained(
+        model_id, torch_dtype=torch.float32, low_cpu_mem_usage=True, use_safetensors=True, attn_implementation="sdpa"
     )
-    # model_s.to(device)
-    processor_s = AutoProcessor.from_pretrained(model_id_s)
+    processor = AutoProcessor.from_pretrained(model_id)
 
-    model_id_q = "openai/whisper-large-v3"
-    model_q = AutoModelForSpeechSeq2Seq.from_pretrained(
-        model_id_q, torch_dtype=torch.float32, low_cpu_mem_usage=True, use_safetensors=True, attn_implementation="sdpa"
-    )
-    # model_q.to(device)
-    processor_q = AutoProcessor.from_pretrained(model_id_q)
-
-    pipe_s = pipeline(
+    pipe = pipeline(
         "automatic-speech-recognition",
-        model=model_s,
-        tokenizer=processor_s.tokenizer,
-        feature_extractor=processor_s.feature_extractor,
+        model=model,
+        tokenizer=processor.tokenizer,
+        feature_extractor=processor.feature_extractor,
         max_new_tokens=128,
         chunk_length_s=30,
         batch_size=16,
         generate_kwargs={'language': 'russian', 'task': 'transcribe'},
         torch_dtype=torch.float32,
-        # device=device
     )
-
-    pipe_q = pipeline(
-        "automatic-speech-recognition",
-        model=model_q,
-        tokenizer=processor_q.tokenizer,
-        feature_extractor=processor_q.feature_extractor,
-        max_new_tokens=128,
-        chunk_length_s=30,
-        batch_size=16,
-        generate_kwargs={'language': 'russian', 'task': 'transcribe'},
-        torch_dtype=torch.float32,
-        # device=device
-    )
-    return pipe_s, pipe_q
+    return pipe
 
 
 def transcribe_audio(audio_file, pipe):
